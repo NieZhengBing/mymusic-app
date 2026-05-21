@@ -1,0 +1,74 @@
+name: mymusic_app
+description: A simple music player app built with Flutter.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Audio playback
+  just_audio: ^0.9.34
+  audio_session: ^0.1.16
+#  onaudio_query: ^2.9.0
+  on_audio_query: ^2.9.0
+
+  # File operations & Metadata
+  path_provider: ^2.1.1
+  file_picker: ^8.1.0
+#  audio_metadata: 0.0.3
+#  flutter_media_metadata: ^1.0.0+1
+  metadata_fetch: ^0.4.1
+
+  # Database
+  sqflite: ^2.3.0
+  path: ^1.8.3
+
+  # Permissions
+  permission_handler: ^11.3.0
+
+  # State management
+  provider: ^6.0.5
+
+  # UI
+  cupertino_icons: ^1.0.5
+  flutter_spinkit: ^5.2.0
+  cached_network_image: ^3.3.0
+
+  # Notifications
+  flutter_local_notifications: ^18.0.0
+
+  # Storage & Cloud
+  shared_preferences: ^2.2.1
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.9.0
+  cloud_firestore: ^4.8.4
+  google_sign_in: ^6.1.5
+
+  # Animations
+  animations: ^2.0.8
+  lottie: ^2.7.0
+
+  # Utils
+  uuid: ^3.0.7
+  intl: ^0.18.1
+  dio: ^5.3.2
+  connectivity_plus: ^5.0.1
+  share_plus: ^7.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.2
+  build_runner: ^2.4.6
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/animations/

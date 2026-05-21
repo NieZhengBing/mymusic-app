@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mount)",
+      "Bash(git -C /home/nzb/mymusic log --oneline)",
+      "Bash(sudo ls -la /home/nzb/mymusic/)"
+    ]
+  }
+}
