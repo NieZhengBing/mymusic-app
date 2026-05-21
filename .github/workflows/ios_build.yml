@@ -1,0 +1,30 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  build-ios:
+    runs-on: macos-latest  # 使用 GitHub 的 Mac 虚拟机
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'  # 换成你的版本
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build IPA (no codesign)
+        run: flutter build ipa --no-codesign
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ios-ipa
+          path: build/ios/ipa/*.ipa
