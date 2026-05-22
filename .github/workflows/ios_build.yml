@@ -17,7 +17,7 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: 禁用 Swift Package Manager   # ← 新增这一步
+      - name: 禁用 Swift Package Manager
         run: flutter config --no-enable-swift-package-manager
 
       - name: 安装依赖
@@ -29,8 +29,16 @@ jobs:
       - name: 打包 iOS（不签名）
         run: flutter build ipa --no-codesign
 
+      - name: 查找构建产物         # ← 新增
+        run: |
+          echo "=== build 目录结构 ==="
+          find build/ios -type f \( -name "*.ipa" -o -name "*.xcarchive" \) 2>/dev/null
+          echo "=== 完整 ios build 目录 ==="
+          ls -la build/ios/ 2>/dev/null || echo "目录不存在"
+
       - name: 上传 ipa 文件
         uses: actions/upload-artifact@v4
         with:
           name: ios-build
-          path: build/ios/ipa/*.ipa
+          path: build/**/*.ipa
+          if-no-files-found: warn
