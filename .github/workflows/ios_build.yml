@@ -29,16 +29,15 @@ jobs:
       - name: 打包 iOS（不签名）
         run: flutter build ipa --no-codesign
 
-      - name: 查找构建产物         # ← 新增
+      - name: 查找构建产物
         run: |
-          echo "=== build 目录结构 ==="
-          find build/ios -type f \( -name "*.ipa" -o -name "*.xcarchive" \) 2>/dev/null
-          echo "=== 完整 ios build 目录 ==="
-          ls -la build/ios/ 2>/dev/null || echo "目录不存在"
+          echo "=== 查找所有 ipa ==="
+          find build/ios/archive -type f 2>/dev/null
+          ls -la build/ios/archive/ 2>/dev/null
 
-      - name: 上传 ipa 文件
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
           name: ios-build
-          path: build/**/*.ipa
-          if-no-files-found: warn
+          path: build/ios/archive/**
+          if-no-files-found: error
