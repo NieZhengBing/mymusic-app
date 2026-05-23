@@ -27,17 +27,19 @@ jobs:
         run: flutter clean
 
       - name: 打包 iOS（不签名）
-        run: flutter build ipa --no-codesign
+        run: flutter build ios --no-codesign --release   # ← 改成 build ios
 
-      - name: 查找构建产物
+      - name: 手动打包成 ipa        # ← 新增：把 .app 打包成 ipa
         run: |
-          echo "=== 查找所有 ipa ==="
-          find build/ios/archive -type f 2>/dev/null
-          ls -la build/ios/archive/ 2>/dev/null
+          mkdir -p Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r ios-build.ipa Payload
+          echo "✅ ipa 生成成功"
+          ls -lh ios-build.ipa
 
-      - name: 上传构建产物
+      - name: 上传 ipa 文件
         uses: actions/upload-artifact@v4
         with:
           name: ios-build
-          path: build/ios/archive/**
+          path: ios-build.ipa        # ← 直接上传 ipa
           if-no-files-found: error
