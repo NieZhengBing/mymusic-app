@@ -29,13 +29,16 @@ jobs:
       - name: 打包 iOS（不签名）
         run: flutter build ios --no-codesign --release
 
-      - name: 查找 Runner.app
-        run: find build/ios -name "Runner.app" -type d
+      - name: Ad-hoc 临时签名      # ← 新增
+        run: |
+          APP_PATH=$(find build/ios -name "Runner.app" -type d | head -1)
+          echo "签名路径: $APP_PATH"
+          codesign --force --deep --sign - "$APP_PATH"
+          echo "✅ 签名完成"
 
       - name: 打包成 ipa
         run: |
           APP_PATH=$(find build/ios -name "Runner.app" -type d | head -1)
-          echo "找到 App: $APP_PATH"
           mkdir -p Payload
           cp -r "$APP_PATH" Payload/Runner.app
           zip -r ios-build.ipa Payload
